@@ -14,6 +14,7 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   font-family: 'Rubik', system-ui, -apple-system, 'Segoe UI', 'SF Pro Rounded', 'Noto Sans Arabic', Roboto, sans-serif;
   color: var(--text);
+  color-scheme: dark;
   -webkit-tap-highlight-color: transparent;
   -webkit-user-select: none;
   user-select: none;
@@ -30,6 +31,9 @@ html, body {
 }
 
 body {
+  /* Set colour on body too: hosts (e.g. an embedding page or a light colour-scheme) can override what :root passes down. */
+  color: var(--text);
+  color-scheme: dark;
   background: linear-gradient(170deg, var(--bg-1) 0%, var(--bg-2) 48%, var(--bg-3) 100%);
 }
 

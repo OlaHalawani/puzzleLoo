@@ -7,13 +7,33 @@ let ctx: AudioContext | null = null;
 function audio(): AudioContext | null {
   if (!store.settings.sound) return null;
   try {
-    ctx ??= new AudioContext();
-    if (ctx.state === 'suspended') void ctx.resume();
+    ctx ??= new (window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+    // iOS leaves the context 'suspended' or 'interrupted' until resumed inside a user gesture.
+    if (ctx.state !== 'running') void ctx.resume().catch(() => {});
     return ctx;
   } catch {
     return null;
   }
 }
+
+/**
+ * iOS Safari only unlocks audio on touchend/click (pointerdown on touch doesn't count),
+ * so retry on every such gesture until the context is running, priming it with a silent buffer.
+ */
+function unlockOnGesture(): void {
+  const ac = audio();
+  if (!ac) return;
+  const src = ac.createBufferSource();
+  src.buffer = ac.createBuffer(1, 1, 22050);
+  src.connect(ac.destination);
+  src.start(0);
+  if (ac.state === 'running') {
+    for (const ev of GESTURES) document.removeEventListener(ev, unlockOnGesture, true);
+  }
+}
+
+const GESTURES = ['touchend', 'pointerup', 'click', 'keydown'] as const;
+for (const ev of GESTURES) document.addEventListener(ev, unlockOnGesture, true);
 
 function tone(freq: number, dur: number, delay = 0, type: OscillatorType = 'sine', vol = 0.08): void {
   const ac = audio();
@@ -63,8 +83,8 @@ export const fx = {
     [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => tone(f, 0.35, i * 0.09, 'triangle', 0.09));
     haptic('success');
   },
-  /** Browsers only allow audio after a user gesture; call from the first tap. */
+  /** Browsers only allow audio after a user gesture; call from taps. */
   unlock(): void {
-    audio();
+    unlockOnGesture();
   },
 };
