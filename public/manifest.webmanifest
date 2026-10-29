@@ -1,0 +1,11 @@
+{
+  "name": "PuzzleLoo",
+  "short_name": "PuzzleLoo",
+  "description": "Connect matching neon shapes and fill the board.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1a0b3d",
+  "theme_color": "#1a0b3d",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

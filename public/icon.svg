@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#1a0b3d"/>
+      <stop offset="0.55" stop-color="#3a1470"/>
+      <stop offset="1" stop-color="#8a2a7c"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <g stroke="rgba(190,170,255,0.18)" stroke-width="4">
+    <path d="M232 232v560M372 232v560M512 232v560M652 232v560M792 232v560M232 232h560M232 372h560M232 512h560M232 652h560M232 792h560"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="44" filter="url(#glow)">
+    <path d="M302 302 V722 H442" stroke="#3d8bff"/>
+    <path d="M442 302 H722 V582" stroke="#ff3b5c"/>
+    <path d="M442 442 V582 H582 V722 H722" stroke="#2dff7a"/>
+  </g>
+  <g filter="url(#glow)" stroke="#fff" stroke-width="10">
+    <rect x="252" y="252" width="100" height="100" rx="8" fill="#3d8bff"/>
+    <rect x="392" y="672" width="100" height="100" rx="8" fill="#3d8bff"/>
+    <circle cx="442" cy="302" r="52" fill="#ff3b5c"/>
+    <circle cx="722" cy="582" r="52" fill="#ff3b5c"/>
+    <path d="M442 382 L502 442 L442 502 L382 442 Z" fill="#2dff7a"/>
+    <path d="M722 662 L782 722 L722 782 L662 722 Z" fill="#2dff7a"/>
+  </g>
+</svg>
